@@ -1,0 +1,10 @@
+ul,
+li {
+  list-style-type: none;
+}
+
+.list {
+  &__item {
+    display: flex;
+  }
+}
