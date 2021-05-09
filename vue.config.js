@@ -8,6 +8,7 @@ module.exports = {
       addStyleResource(config.module.rule("scss").oneOf(type))
     );
   },
+  transpileDependencies: ["vuex-persist"],
 };
 
 function addStyleResource(rule) {

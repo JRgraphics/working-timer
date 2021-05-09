@@ -1,0 +1,15 @@
+html,
+body {
+  background: rgb(33, 48, 60);
+  background: linear-gradient(
+    38deg,
+    rgba(33, 48, 60, 1) 0%,
+    rgba(81, 130, 172, 1) 51%,
+    rgba(33, 83, 125, 1) 100%
+  );
+  color: $white;
+  font-family: "Roboto", sans-serif;
+  height: 100%;
+  overflow-y: auto;
+  width: 100%;
+}

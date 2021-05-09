@@ -1,5 +1,7 @@
 <template>
-  <ClientList />
+  <div class="page">
+    <ClientList />
+  </div>
 </template>
 
 <script lang="ts">

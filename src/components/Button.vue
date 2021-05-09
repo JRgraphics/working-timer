@@ -1,13 +1,13 @@
 <template>
   <button
-    v-bind:class="buttonClasses"
+    v-bind:class="'button ' + buttonClasses"
     v-on:click="
       () => {
         this.$emit('clicked');
       }
     "
   >
-    <div v-html="buttonContent"></div>
+    <div class="d-flex align-items-center" v-html="buttonContent"></div>
   </button>
 </template>
 

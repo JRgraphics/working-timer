@@ -1,8 +1,8 @@
 import { Commit } from "vuex";
 const state = {
   times: [
-    { id: 0, name: "Asiakas1", time: 0 },
-    { id: 1, name: "Asiakas2", time: 0 },
+    { id: 0, name: "Asiakas1", time: 0, timeString: "00:00:00" },
+    { id: 1, name: "Asiakas2", time: 0, timeString: "00:00:00" },
   ],
   active: -1,
   interval: 0,
@@ -26,15 +26,16 @@ const actions = {
   addClient({ commit }: { commit: Commit }, name: string) {
     commit("addClient", name);
   },
+  removeClient({ commit }: { commit: Commit }, name: string) {
+    commit("removeClient", name);
+  },
 };
 
 const mutations = {
   resetState(state: any) {
     state.active = -1;
     clearInterval(state.interval);
-    state.times.forEach((item: any) => {
-      item.time = 0;
-    });
+    state.times = [];
   },
   resetInterval(state: any) {
     clearInterval(state.interval);
@@ -48,11 +49,26 @@ const mutations = {
       state.active = index;
       state.interval = setInterval(() => {
         state.times[index].time += 1;
+        state.times[index].timeString = new Date(state.times[index].time * 1000)
+          .toISOString()
+          .substr(11, 8);
       }, 1000);
     }
   },
   addClient(state: any, name: string) {
-    state.times.push({ id: Math.random(), name: name, time: 0 });
+    state.times.push({
+      id: Math.random(),
+      name: name,
+      time: 0,
+      timeString: "00:00:00",
+    });
+  },
+  removeClient(state: any, index: number) {
+    if (index === state.active) {
+      clearInterval(state.interval);
+      state.active = -1;
+    }
+    state.times.splice(index, 1);
   },
 };
 
