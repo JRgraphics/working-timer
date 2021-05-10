@@ -41,7 +41,7 @@
               maxlength="200"
             ></textarea>
             <div v-if="!toggle">
-              {{ allTimes.find((item, index) => index === this.index).comment }}
+              {{ this.item.comment }}
             </div>
           </label>
         </div>
@@ -79,7 +79,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      comment: "",
+      comment: this.item.comment,
       toggle: false,
     };
   },
