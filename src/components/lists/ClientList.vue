@@ -8,7 +8,7 @@
         placeholder="Lisää asiakas"
       />
       <Button
-        :buttonClasses="['button--transparent']"
+        :buttonClasses="['button--dark']"
         :buttonContent="'Lisää'"
         v-on:clicked="handleOnAdd"
       />
@@ -21,8 +21,11 @@
         :csv-title="'tyoaika'"
         :json-data="allTimes"
         :labels="{
-          name: { title: 'Asiakas' },
-          timeString: { title: 'Työaika' },
+          name: { title: 'Kohde' },
+          start: { title: 'Alku' },
+          end: { title: 'Loppu' },
+          timeString: { title: 'Aika' },
+          comment: { title: 'Kommentit' },
         }"
       >
         <button class="button button--dark">

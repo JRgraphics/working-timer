@@ -1,16 +1,29 @@
+import { putFrontZeroes } from "@/helpers/dateTimeConver";
 import { Commit } from "vuex";
+import { getField, updateField } from "vuex-map-fields";
+
 const state = {
   times: [
-    { id: 0, name: "Asiakas1", time: 0, timeString: "00:00:00" },
-    { id: 1, name: "Asiakas2", time: 0, timeString: "00:00:00" },
+    {
+      comment: "",
+      end: null,
+      id: 0,
+      name: "Asiakas1",
+      start: null,
+      time: 0,
+      timeString: "00:00:00",
+    },
   ],
   active: -1,
+  doneItems: [],
   interval: 0,
 };
 
 const getters = {
   allTimes: (state: any) => state.times,
   active: (state: any) => state.active,
+  doneItems: (state: any) => state.doneItems,
+  getField,
 };
 
 const actions = {
@@ -29,6 +42,9 @@ const actions = {
   removeClient({ commit }: { commit: Commit }, name: string) {
     commit("removeClient", name);
   },
+  addComment({ commit }: { commit: Commit }, payload: any) {
+    commit("addComment", payload);
+  },
 };
 
 const mutations = {
@@ -36,6 +52,7 @@ const mutations = {
     state.active = -1;
     clearInterval(state.interval);
     state.times = [];
+    state.doneItems = [];
   },
   resetInterval(state: any) {
     clearInterval(state.interval);
@@ -45,8 +62,11 @@ const mutations = {
     clearInterval(state.interval);
     if (index === state.active) {
       state.active = -1;
+      state.times[index].end = putFrontZeroes(new Date());
+      state.doneItems.push(index);
     } else {
       state.active = index;
+      state.times[index].start = putFrontZeroes(new Date());
       state.interval = setInterval(() => {
         state.times[index].time += 1;
         state.times[index].timeString = new Date(state.times[index].time * 1000)
@@ -61,7 +81,12 @@ const mutations = {
       name: name,
       time: 0,
       timeString: "00:00:00",
+      comment: "",
     });
+  },
+  addComment(state: any, payload: any) {
+    console.log(payload);
+    state.times[payload.index].comment = payload.comment;
   },
   removeClient(state: any, index: number) {
     if (index === state.active) {
@@ -70,6 +95,7 @@ const mutations = {
     }
     state.times.splice(index, 1);
   },
+  updateField,
 };
 
 export default {
